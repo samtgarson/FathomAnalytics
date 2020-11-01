@@ -19,7 +19,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.2.0")),
-        .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0")
+        .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
+        .package(url: "https://github.com/WeTransfer/Mocker.git", .upToNextMajor(from: "2.3.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -32,6 +33,6 @@ let package = Package(
             ]),
         .testTarget(
             name: "FathomAnalyticsClientTests",
-            dependencies: ["FathomAnalyticsClient"]),
+            dependencies: ["FathomAnalyticsClient", "Mocker"]),
     ]
 )

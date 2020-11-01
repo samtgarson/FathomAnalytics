@@ -12,18 +12,24 @@ import UIKit
 #endif
 
 protocol NetworkClient {
-    func get(_ url: String, parameters: Parameters?, completion: @escaping (Result<Void, Error>) -> Void) -> Void
-    func post(_ url: String, parameters: Parameters?, completion: @escaping (Result<Void, Error>) -> Void) -> Void
+    func get(_ url: String, parameters: Parameters?, completion: @escaping (Result<String, Error>) -> Void) -> Void
+    func post(_ url: String, parameters: Parameters?, completion: @escaping (Result<String, Error>) -> Void) -> Void
 }
 
 class FathomNetworkClient {
-    private func request (method: HTTPMethod, url: String, parameters: Parameters?, completion: @escaping (Result<Void, Error>) -> Void) {
-        AF.request(url, method: .get, parameters: parameters)
+    internal init(session: Session = Session.default) {
+        self.session = session
+    }
+    
+    let session: Session
+    
+    func request (method: HTTPMethod, url: String, parameters: Parameters?, completion: @escaping (Result<String, Error>) -> Void) {
+        session.request(url, method: .get, parameters: parameters)
             .validate()
-            .response(queue: queue) { response in
+            .responseString(queue: queue) { response in
                 switch response.result {
-                case .success:
-                    completion(.success(()))
+                case .success(let data):
+                    completion(.success(data))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -46,11 +52,11 @@ class FathomNetworkClient {
 }
 
 extension FathomNetworkClient: NetworkClient {
-    func get(_ url: String, parameters: Parameters?, completion: @escaping (Result<Void, Error>) -> Void) {
+    func get(_ url: String, parameters: Parameters?, completion: @escaping (Result<String, Error>) -> Void) {
         request(method: .get, url: url, parameters: parameters, completion: completion)
     }
     
-    func post(_ url: String, parameters: Parameters?, completion: @escaping (Result<Void, Error>) -> Void) {
+    func post(_ url: String, parameters: Parameters?, completion: @escaping (Result<String, Error>) -> Void) {
         request(method: .post, url: url, parameters: parameters, completion: completion)
     }
 }

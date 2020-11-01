@@ -12,14 +12,14 @@ import Alamofire
 class MockNetworkClient {
     private var failNext = false
     
-    private func request(_ method: HTTPMethod, url: String, parameters: Parameters?, completion: @escaping (Result<Void, Error>) -> Void) {
+    private func request(_ method: HTTPMethod, url: String, parameters: Parameters?, completion: @escaping (Result<String, Error>) -> Void) {
         calls.append(NetworkRequest(method: method, url: url, parameters: parameters))
         
         if failNext {
             failNext = false
             completion(.failure(MockNetworkError.oops))
         } else {
-            completion(.success(()))
+            completion(.success("response"))
         }
     }
     
@@ -41,11 +41,11 @@ class MockNetworkClient {
 }
 
 extension MockNetworkClient: NetworkClient {
-    func get(_ url: String, parameters: Parameters?, completion: @escaping (Result<Void, Error>) -> Void) {
+    func get(_ url: String, parameters: Parameters?, completion: @escaping (Result<String, Error>) -> Void) {
         request(.get, url: url, parameters: parameters, completion: completion)
     }
     
-    func post(_ url: String, parameters: Parameters?, completion: @escaping (Result<Void, Error>) -> Void) {
+    func post(_ url: String, parameters: Parameters?, completion: @escaping (Result<String, Error>) -> Void) {
         request(.post, url: url, parameters: parameters, completion: completion)
     }
 }
