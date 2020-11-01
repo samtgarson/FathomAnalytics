@@ -30,8 +30,7 @@ final class FathomNetworkClientTests: XCTestCase {
             data: [
                 .get: "response".data(using: .utf8)!,
                 .post: "response".data(using: .utf8)!
-            ],
-            additionalHeaders: ["User-Agent": "swift-app"]
+            ]
         ).register()
         
         Mock(
@@ -41,8 +40,7 @@ final class FathomNetworkClientTests: XCTestCase {
             data: [
                 .get: "response".data(using: .utf8)!,
                 .post: "response".data(using: .utf8)!
-            ],
-            additionalHeaders: ["User-Agent": "swift-app"]
+            ]
         ).register()
         
         Mock(
@@ -53,7 +51,6 @@ final class FathomNetworkClientTests: XCTestCase {
                 .get: "response".data(using: .utf8)!,
                 .post: "response".data(using: .utf8)!
             ],
-            additionalHeaders: ["User-Agent": "swift-app"],
             requestError: MockNetworkClient.MockNetworkError.oops
         ).register()
     }

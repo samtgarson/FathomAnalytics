@@ -37,18 +37,6 @@ class FathomNetworkClient {
     }
     
     private let queue = DispatchQueue.global(qos: .utility)
-    private var headers: HTTPHeaders {
-        ["User-Agent": userAgent]
-    }
-    
-    private var userAgent: String {
-        #if canImport(UIKit)
-        let webView = UIWebView()
-        return webView.stringByEvaluatingJavaScript(from: "navigator.userAgent")!
-        #else
-        return "swift-app"
-        #endif
-    }
 }
 
 extension FathomNetworkClient: NetworkClient {

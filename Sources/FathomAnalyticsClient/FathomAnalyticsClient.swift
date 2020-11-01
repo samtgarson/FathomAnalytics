@@ -12,18 +12,46 @@ import UIKit
 #endif
 
 public final class FathomAnalyticsClient {
-    init(with config: Configuration) {
-        self.config = config
-        self.logger = Logger(label: "FathomAnalyticsClient", factory: config.loggingBackend)
+    internal init(
+        siteID: String,
+        environment: String,
+        url: String,
+        logger: (String) -> LogHandler,
+        networkClient: NetworkClient
+    ) {
+        self.siteID = siteID
+        self.environment = environment
+        self.url = url
+        self.logger = Logger(label: "FathomAnalyticsClient", factory: logger)
+        self.requester = networkClient
     }
     
-    private let config: Configuration
-    private let logger: Logger
+    public convenience init(
+        siteID: String,
+        environment: String,
+        url: String = "https://starman.fathomdns.com",
+        logger: (String) -> LogHandler = StreamLogHandler.standardOutput
+    ) {
+        self.init(
+            siteID: siteID,
+            environment: environment,
+            url: url,
+            logger: logger,
+            networkClient: FathomNetworkClient()
+        )
+    }
+    
+    private var siteID: String
+    private var environment: String
+    private var url: String
+    private var logger: Logger
+    private var requester: NetworkClient
 }
 
+// MARK: Page tracking
 extension FathomAnalyticsClient {
     func track(page name: String) {
-        config.requester.get(config.url, parameters: parameters(for: name)) { result in
+        requester.get(url, parameters: parameters(for: name)) { result in
             switch result {
             case .failure(let error):
                 self.logger.error("Failed to track page \(name): \(error.localizedDescription)")
@@ -35,8 +63,8 @@ extension FathomAnalyticsClient {
 
     private func parameters(for page: String) -> [String: String] {
         [
-            "sid": config.siteID,
-            "h": config.environment,
+            "sid": siteID,
+            "h": environment,
             "p": page,
             "res": resolution
         ]
@@ -52,9 +80,10 @@ extension FathomAnalyticsClient {
     }
 }
 
+// MARK: Goal tracking
 extension FathomAnalyticsClient {
     func track(goal code: String, value: Int = 0) {
-        config.requester.post(config.url, parameters: parameters(for: code, value: value)) { result in
+        requester.post(url, parameters: parameters(for: code, value: value)) { result in
             switch result {
             case .failure(let error):
                 self.logger.error("Failed to track goal \(code): \(error.localizedDescription)")

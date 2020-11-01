@@ -13,10 +13,10 @@ final class FathomAnalyticsClientTests: XCTestCase {
     let environment = "production"
     let url = "url"
     
-    func testConfiguration() {
-        let basic = FathomAnalyticsClient(with: Configuration(siteID: siteID, environment: environment))
-        let withUrl = FathomAnalyticsClient(with: Configuration(siteID: siteID, environment: environment, url: url))
-        let withLogger = FathomAnalyticsClient(with: Configuration(siteID: siteID, environment: environment, loggingBackend: MockLogBackend.handler))
+    func testFathomConfiguration() {
+        let basic = FathomAnalyticsClient(siteID: siteID, environment: environment)
+        let withUrl = FathomAnalyticsClient(siteID: siteID, environment: environment, url: url)
+        let withLogger = FathomAnalyticsClient(siteID: siteID, environment: environment, logger: MockLogBackend.handler)
         
         XCTAssertNotNil(basic)
         XCTAssertNotNil(withUrl)
@@ -26,8 +26,7 @@ final class FathomAnalyticsClientTests: XCTestCase {
     func testTrackPage() {
         let page = "my page"
         let networkClient = MockNetworkClient()
-        let config = Configuration(siteID: siteID, environment: environment, url: url, requester: networkClient, loggingBackend: MockLogBackend.handler)
-        let client = FathomAnalyticsClient(with: config)
+        let client = FathomAnalyticsClient(siteID: siteID, environment: environment, url: url, logger: MockLogBackend.handler, networkClient: networkClient)
         
         client.track(page: page)
         
@@ -50,8 +49,7 @@ final class FathomAnalyticsClientTests: XCTestCase {
     func testFailedTrackPage() {
         let page = "my page"
         let networkClient = MockNetworkClient()
-        let config = Configuration(siteID: siteID, environment: environment, url: url, requester: networkClient, loggingBackend: MockLogBackend.handler)
-        let client = FathomAnalyticsClient(with: config)
+        let client = FathomAnalyticsClient(siteID: siteID, environment: environment, url: url, logger: MockLogBackend.handler, networkClient: networkClient)
         
         networkClient.failNextCall()
         client.track(page: page)
@@ -65,8 +63,7 @@ final class FathomAnalyticsClientTests: XCTestCase {
         let goal = "goal code"
         let value = 2
         let networkClient = MockNetworkClient()
-        let config = Configuration(siteID: siteID, environment: environment, url: url, requester: networkClient, loggingBackend: MockLogBackend.handler)
-        let client = FathomAnalyticsClient(with: config)
+        let client = FathomAnalyticsClient(siteID: siteID, environment: environment, url: url, logger: MockLogBackend.handler, networkClient: networkClient)
         
         client.track(goal: goal, value: value)
         
@@ -88,8 +85,7 @@ final class FathomAnalyticsClientTests: XCTestCase {
         let goal = "goal code"
         let value = 2
         let networkClient = MockNetworkClient()
-        let config = Configuration(siteID: siteID, environment: environment, url: url, requester: networkClient, loggingBackend: MockLogBackend.handler)
-        let client = FathomAnalyticsClient(with: config)
+        let client = FathomAnalyticsClient(siteID: siteID, environment: environment, url: url, logger: MockLogBackend.handler, networkClient: networkClient)
         
         networkClient.failNextCall()
         client.track(goal: goal, value: value)
