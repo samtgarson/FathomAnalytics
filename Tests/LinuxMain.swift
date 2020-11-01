@@ -1,6 +1,1 @@
-import XCTest
-
-import FathomAnalyticsClientTests
-
-var tests = [XCTestCaseEntry]()
-XCTMain(tests)
+fatalError("Run the tests with `swift test --enable-test-discovery`.")

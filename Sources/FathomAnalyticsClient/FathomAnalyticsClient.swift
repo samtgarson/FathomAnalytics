@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Logging
 #if canImport(UIKit)
 import UIKit
 #endif
@@ -13,23 +14,25 @@ import UIKit
 public final class FathomAnalyticsClient {
     init(with config: Configuration) {
         self.config = config
-        
-        LogBootstrapper.bootstrap(config.loggingBackend)
+        self.logger = Logger(label: "FathomAnalyticsClient", factory: config.loggingBackend)
     }
     
-    private var config: Configuration
-    
+    private let config: Configuration
+    private let logger: Logger
+}
+
+extension FathomAnalyticsClient {
     func track(page name: String) {
-        config.requester.request(config.url, parameters: parameters(for: name)) { result in
+        config.requester.get(config.url, parameters: parameters(for: name)) { result in
             switch result {
             case .failure(let error):
-                print("Failed to track page \(name): \(error)")
+                self.logger.error("Failed to track page \(name): \(error.localizedDescription)")
             case .success:
-                print("Tracked page \(name)")
+                self.logger.info("Tracked page \(name)")
             }
         }
     }
-    
+
     private func parameters(for page: String) -> [String: String] {
         [
             "sid": config.siteID,
@@ -46,5 +49,25 @@ public final class FathomAnalyticsClient {
         #else
         return ""
         #endif
+    }
+}
+
+extension FathomAnalyticsClient {
+    func track(goal code: String, value: Int = 0) {
+        config.requester.post(config.url, parameters: parameters(for: code, value: value)) { result in
+            switch result {
+            case .failure(let error):
+                self.logger.error("Failed to track goal \(code): \(error.localizedDescription)")
+            case .success:
+                self.logger.info("Tracked goal \(code)")
+            }
+        }
+    }
+    
+    private func parameters(for goal: String, value: Int) -> [String: String] {
+        [
+            "gcode": goal,
+            "gval": "\(value)"
+        ]
     }
 }
