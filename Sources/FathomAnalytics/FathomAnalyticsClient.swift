@@ -50,7 +50,7 @@ public final class FathomAnalyticsClient {
 
 // MARK: Page tracking
 extension FathomAnalyticsClient {
-    func track(page name: String) {
+    public func track(page name: String) {
         requester.get(url, parameters: parameters(for: name)) { result in
             switch result {
             case .failure(let error):
@@ -82,7 +82,7 @@ extension FathomAnalyticsClient {
 
 // MARK: Goal tracking
 extension FathomAnalyticsClient {
-    func track(goal code: String, value: Int = 0) {
+    public func track(goal code: String, value: Int = 0) {
         requester.post(url, parameters: parameters(for: code, value: value)) { result in
             switch result {
             case .failure(let error):
