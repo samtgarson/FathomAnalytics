@@ -8,7 +8,7 @@
 import XCTest
 import Alamofire
 import Mocker
-@testable import FathomAnalyticsClient
+@testable import FathomAnalytics
 
 func createSession() -> Session {
     let configuration = URLSessionConfiguration.af.default

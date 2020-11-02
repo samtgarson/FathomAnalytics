@@ -1,6 +1,6 @@
 <img alt="Bartholomew" src="https://usefathom.com/assets/fathom-cat08.svg" height="100" />
 
-**FathomAnalyticsClient**
+**FathomAnalytics**
 
 An experiemental Swift client to allow you to track your iOS users using [Fathom Analytics](https://usefathom.com).
 
@@ -10,11 +10,11 @@ An experiemental Swift client to allow you to track your iOS users using [Fathom
 
 The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the swift compiler.
 
-Once you have your Swift package set up, adding FathomAnalyticsClient as a dependency is as easy as adding it to the dependencies value of your Package.swift.
+Once you have your Swift package set up, adding FathomAnalytics as a dependency is as easy as adding it to the dependencies value of your Package.swift.
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/samtgarson/FathomAnalyticsClient.git", .upToNextMajor(from: "0.0.1"))
+    .package(url: "https://github.com/samtgarson/FathomAnalytics.git", .upToNextMajor(from: "0.0.1"))
 ]
 ```
 
@@ -22,9 +22,9 @@ dependencies: [
 
 ### Quick Start
 
-1. Import FathomAnalyticsClient and instantiate a new client instance with your Fathom config:
+1. Import FathomAnalytics and instantiate a new client instance with your Fathom config:
 ```swift
-import FathomAnalyticsClient
+import FathomAnalytics
 
 let analytics = FathomAnalyticsClient(siteID: siteID, environment: environment)
 ```
@@ -68,7 +68,7 @@ To track a goal:
 
 ## Contribute
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/samtgarson/FathomAnalyticsClient. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/samtgarson/FathomAnalytics. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ### License
 

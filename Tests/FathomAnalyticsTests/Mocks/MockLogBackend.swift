@@ -7,7 +7,7 @@
 
 import Foundation
 import Logging
-@testable import FathomAnalyticsClient
+@testable import FathomAnalytics
 
 let logger = MockLogBackend()
 

@@ -22,7 +22,7 @@ public final class FathomAnalyticsClient {
         self.siteID = siteID
         self.environment = environment
         self.url = url
-        self.logger = Logger(label: "FathomAnalyticsClient", factory: logger)
+        self.logger = Logger(label: "FathomAnalytics", factory: logger)
         self.requester = networkClient
     }
     

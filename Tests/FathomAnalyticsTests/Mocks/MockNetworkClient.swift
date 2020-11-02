@@ -7,7 +7,7 @@
 
 import Foundation
 import Alamofire
-@testable import FathomAnalyticsClient
+@testable import FathomAnalytics
 
 class MockNetworkClient {
     private var failNext = false

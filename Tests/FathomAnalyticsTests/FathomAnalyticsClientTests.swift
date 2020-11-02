@@ -1,12 +1,12 @@
 //
-//  FathomAnalyticsClientTests.swift
+//  FathomAnalyticsTests.swift
 //
 //
 //  Created by Sam Garson on 29/10/2020.
 //
 
 import XCTest
-@testable import FathomAnalyticsClient
+@testable import FathomAnalytics
 
 final class FathomAnalyticsClientTests: XCTestCase {
     let siteID = "siteID"
