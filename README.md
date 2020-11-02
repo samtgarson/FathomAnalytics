@@ -1,8 +1,13 @@
-<img alt="Bartholomew" src="https://usefathom.com/assets/fathom-cat08.svg" height="100" />
+<p align="center">
+<img alt="Batholomew the cat" title="Bartholomew" src="https://usefathom.com/assets/fathom-cat08.svg" height="100" />
+</p>
 
-**FathomAnalytics**
+<p align="center"><strong>FathomAnalytics</strong></p>
 
-An experiemental Swift client to allow you to track your iOS users using [Fathom Analytics](https://usefathom.com).
+<p align="center">An experiemental Swift client to allow you to track your iOS users using <a href="https://usefathom.com">Fathom Analytics</a>.</p>
+
+<p align="center"><a href="https://actions-badge.atrox.dev/samtgarson/FathomAnalytics/goto?ref=main"><img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fsamtgarson%2FFathomAnalytics%2Fbadge%3Fref%3Dmain&style=flat" /></a></p>
+</p>
 
 ## Installation
 
@@ -46,7 +51,7 @@ analytics.track(goal: "MFTZ2U9V", value: 30)
 | Parameter | Required | Description |
 |-|-|-|
 | `siteID` | * | Your Fathom site ID (something like `ABCDEFGH`) |
-| `environment` | * | A string to identify the environment you're reporting from (this is to replace the concept of "host" in a web browser) |
+| `environment` | * | A string to identify the environment you're reporting from (this is to replace the concept of "host" in a web browser) <br />_⚠️ Known issue: this currently has to be in the form of a url for Fathom to register a page view (e.g. `https://my-app.yourdomain.com/development`)_ |
 | `url` |  | Your custom URL setup in Fathom, if you have one (defaults to Fathom's global API URL) |
 | `logger` |  | Provide a custom, [`swift-log`](https://github.com/apple/swift-log) compliant, logging backend (defaults to logging to `stdout`) |
 
