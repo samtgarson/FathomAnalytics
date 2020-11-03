@@ -4,7 +4,7 @@
 
 <p align="center"><strong>FathomAnalytics</strong></p>
 
-<p align="center">An experiemental Swift client to allow you to track your iOS users using <a href="https://usefathom.com">Fathom Analytics</a>.</p>
+<p align="center">An experimental Swift client to allow you to track your iOS users using <a href="https://usefathom.com">Fathom Analytics</a>.</p>
 
 <p align="center"><a href="https://actions-badge.atrox.dev/samtgarson/FathomAnalytics/goto?ref=main"><img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fsamtgarson%2FFathomAnalytics%2Fbadge%3Fref%3Dmain&style=flat" /></a></p>
 </p>
@@ -43,6 +43,10 @@ analytics.track(page: "account")
 ```swift
 analytics.track(goal: "MFTZ2U9V", value: 30)
 ```
+
+### Example Usage
+
+For an example usage of this package to track pages and goals, check out [this SwiftUI project](https://github.com/samtgarson/MusicPractice).
 
 ### API
 
